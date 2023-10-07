@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flask Exam App</title>
+    <style>
+		/* Genel stil */
+		body {
+			font-family: Arial, sans-serif;
+			margin: 0;
+			padding: 0;
+			min-height: 100vh;
+			display: flex;
+			flex-direction: column;
+			background-color: #6da9df;
+		}
+	
+		/* Header stil */
+		header {
+			background-color: #1e405e;
+			color: white;
+			padding: 20px;
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+		}
+        
+        user agent stylesheet
+        a:-webkit-any-link {
+            color: -webkit-link;
+            cursor: pointer;
+            text-decoration: underline;
+        }
+        user agent stylesheet
+        li {
+            text-align: -webkit-match-parent;
+        }
+        user agent stylesheet
+        ul {
+            list-style-type: disc;
+        }
+        
+	
+		/* Logo stil */
+		.logo {
+			font-size: 24px;
+			font-weight: bold;
+			max-width: 100px;
+		}
+	
+	
+		/* Kullanıcı adı stil */
+		.user_name {
+			font-weight: bold;
+			padding-left: 15px;
+		}
+	
+		/* Body stil */
+		.content {
+			flex: 1;
+			padding: 20px;
+			text-align: center;
+		}
+	
+		/* Footer stil */
+		footer {
+			background-color: #1e405e;
+			color: white;
+			padding: 10px;
+			text-align: center;
+		}
+	
+		h1.colorful-text {
+			background: #1e405e;
+			-webkit-background-clip: text;
+			background-clip: text;
+			color: transparent;
+			font-size: 36px;
+		}
+	
+		.bottom a {
+			color: #fff;
+		}
+        table {
+            border-collapse: collapse; /* Tablo hücreleri arasındaki boşluğu kaldır */
+            width: 80%; /* Tabloyu sayfanın genişliğinin yüzde 80'ine ayarla */
+            margin: 0 auto; /* Tabloyu yatayda ortala */
+            color: #1e405e;
+        }
+        
+        table, th, td {
+            border: 1px solid #FFFFFF; /* Hücre çerçevesi oluştur */
+        }
+        
+        th, td {
+            padding: 8px; /* Hücre içeriği ile çerçeve arasındaki boşluğu ayarla */
+            text-align: left; /* Metni hücrenin soluna hizala */
+        }
+        th {
+            font-weight: bold;
+            font-size: 30px;
+        }
+        h2 {
+            color: #ca0000;
+        }
+        ul.menu {
+            list-style-type: none;
+            display: flex;
+        }
+
+        ul.menu li {
+            margin-left: 20px;
+        }
+
+        ul.menu a {
+            text-decoration: none;
+            color: white;
+        }
+
+        ul.menu-vertical {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            margin-left: auto;
+        }
+
+        ul.menu-vertical li {
+            margin-right: 20px;
+        }
+
+        ul.menu-vertical a {
+            text-decoration: none;
+            color: white;
+        }
+        /* Input alanı */
+input[type="text"] {
+    padding: 10px; /* İçeriği düzgün bir şekilde hizalamak için iç boşluğu ayarla */
+    border: 1px solid #1e405e; /* Çerçeve rengi */
+    border-radius: 5px; /* Köşeleri yuvarla */
+    font-size: 16px; /* Yazı tipi boyutu */
+}
+
+/* Buton */
+input[type="submit"] {
+    padding: 10px 20px; /* Yatay ve dikey iç boşluğu ayarla */
+    background-color: #1e405e; /* Arka plan rengi */
+    color: white; /* Yazı rengi */
+    border: none; /* Çerçeve olmasın */
+    border-radius: 5px; /* Köşeleri yuvarla */
+    cursor: pointer; /* Fare işaretçisini göster */
+    font-size: 16px; /* Yazı tipi boyutu */
+}
+
+/* Butona fare üzerine geldiğinde stil verme */
+input[type="submit"]:hover {
+    background-color: #123357; /* Hover durumunda arka plan rengi değiştirme */
+}
+
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column; /* Dikey sıralama */
+                align-items: flex-start; /* Solda hizalama */
+            }
+        
+            .menu {
+                margin-top: 10px; /* Menüyü yukarı taşı */
+                justify-content: flex-start; /* Menüyü sola hizala */
+            }
+        
+            .menu li {
+                margin-left: 0; /* Mobilde margin'ı kaldır */
+                margin-top: 10px; /* Mobilde menü öğeleri arasına boşluk ekle */
+            }
+        
+            .menu-vertical {
+                padding-left: 0; /* Sol padding'i sıfırla */
+            }
+            .menu-vertical {
+                margin-top: 10px; /* Menüyü yukarı taşı */
+                justify-content: flex-start; /* Menüyü sola hizala */
+            }
+        
+            .menu-vertical li {
+                margin-left: 0; /* Mobilde margin'ı kaldır */
+                margin-top: 10px; /* Mobilde menü öğeleri arasına boşluk ekle */
+            }
+        
+            .menu-vertical {
+                padding-left: 0; /* Sol padding'i sıfırla */
+            }
+        }
+	</style>
+</head>
+<body>
+    <header>
+        <div class="logo"><img src="https://i.hizliresim.com/3cx60od.png" alt="Logo" class="logo"></div>
+        <ul class="menu">
+            <li><a href="/home">Ana Sayfa</a></li>
+            <li><a href="/exam">Sınavlar</a></li>
+            <li><a href="/leader">Liderlik Tablosu</a></li>
+        </ul>
+		<ul class="menu-vertical">
+            <li><a href="#">Puan: {{ score }}</a></li> 
+			<li><a class='user_name' href="#">{{session.name}}</a></li>
+			<li><a href="#"><a href="{{ url_for('logout') }}"> Logout</a></a></li>
+		</ul>
+    </header>
+
+    <div class="content">
+        <h1>Hava Tahmini</h1>
+    <form action="/home" method="GET">
+        <label for="city_name">Şehir Adı:</label>
+        <input type="text" id="city_name" name="city_name" required>
+        <input type="submit" value="Hava Tahmini Al">
+    </form>
+
+    <table>
+        <tr>
+            <th>Tarih</th>
+            <th>Sabah Sıcaklık</th>
+            <th>Akşam Sıcaklık</th>
+        </tr>
+        <tr>
+            <td>Bugün</td>
+            <td>{{ today_morning }} °C</td>
+            <td>{{ today_evening }} °C</td>
+        </tr>
+        <tr>
+            <td>Yarın</td>
+            <td>{{ tomorrow_morning }} °C</td>
+            <td>{{ tomorrow_evening }} °C</td>
+        </tr>
+        <tr>
+            <td>Yarından Sonraki Gün</td>
+            <td>{{ day_after_morning }} °C</td>
+            <td>{{ day_after_evening }} °C</td>
+        </tr>
+    </table>
+    </div>
+
+    <footer>
+        <p>Copyright © Ayberk Irmak</br>Flask Exam App</p>
+    </footer>
+</body>
+</html>

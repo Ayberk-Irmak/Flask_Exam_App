@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
+    <title>Flask Exam App</title>
+    <style>
+		/* Genel stil */
+		body {
+			font-family: Arial, sans-serif;
+			margin: 0;
+			padding: 0;
+			min-height: 100vh;
+			display: flex;
+			flex-direction: column;
+			background-color: #6da9df;
+		}
+	
+		/* Header stil */
+		header {
+			background-color: #1e405e;
+			color: white;
+			padding: 20px;
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+		}
+	
+		/* Logo stil */
+		.logo {
+			font-size: 24px;
+			font-weight: bold;
+			max-width: 100px;
+		}
+	
+		/* Menü stil */
+		.menu,
+		.menu-vertical {
+			list-style: none;
+			margin: 0;
+			padding: 0;
+			display: flex;
+			align-items: center;
+			margin-left: auto;
+		}
+	
+		.menu li,
+		.menu-vertical li {
+			margin-right: 20px;
+		}
+	
+		.menu a,
+		.menu-vertical a {
+			text-decoration: none;
+			color: white;
+		}
+	
+		/* Kullanıcı adı stil */
+		.user_name {
+			font-weight: bold;
+			padding-left: 15px;
+		}
+	
+		/* Body stil */
+		.content {
+			flex: 1;
+			padding: 20px;
+			text-align: center;
+		}
+	
+		/* Footer stil */
+		footer {
+			background-color: #1e405e;
+			color: white;
+			padding: 10px;
+			text-align: center;
+		}
+	
+		h1.colorful-text {
+			background: #1e405e;
+			-webkit-background-clip: text;
+			background-clip: text;
+			color: transparent;
+			font-size: 36px;
+		}
+	
+		.bottom a {
+			color: #fff;
+		}
+	
+		@media (max-width: 768px) {
+			header {
+				flex-direction: column;
+				align-items: flex-start;
+			}
+	
+			.menu,
+			.menu-vertical {
+				margin-top: 10px;
+				justify-content: flex-start;
+			}
+	
+			.menu li,
+			.menu-vertical li {
+				margin-right: 0;
+				margin-top: 10px;
+			}
+	
+			.menu-vertical {
+				padding-left: 0;
+			}
+		}
+	</style>
+</head>
+<body>
+    <header>
+        <div class="logo"><img src="https://i.hizliresim.com/3cx60od.png" alt="Logo" class="logo"></div>
+		<ul class="menu-vertical">
+			<li><a href="/register">Kayıt Ol</a></li>
+			<li><a href="/login">Giriş Yap</a></li>
+		</ul>
+    </header>
+
+    <div class="content">
+		<h1 class="colorful-text">Flask Exam App</h1>
+		<h2>Kayıt Ol</h2>
+	<form action="{{ url_for('register') }}" method="post">
+        {% if mesage is defined and mesage %}
+			<div class="alert alert-warning">{{ mesage }}</div>
+		{% endif %}
+		<div class="form-group">
+			<label for="name">İsim:</label>
+			<input type="text" class="form-control" id="name" name="name" placeholder="İsminizi Girin">
+		</div>
+		<div class="form-group">
+			<label for="email">Email:</label>
+			<input type="email" class="form-control" id="email" name="email" placeholder="Emailinizi Girin">
+		</div>
+		<div class="form-group">
+			<label for="pwd">Şifre:</label>
+			<input type="password" class="form-control" id="password" name="password" placeholder="Şifrenizi Girin">
+		</div>
+		<div class="form-group">
+			<label for="pwd">Şifrenizi Doğrulayın:</label>
+			<input type="password" class="form-control" id="passwordd" name="passwordd" placeholder="Şifrenizi Tekrar Girin">
+		</div>
+		<button type="submit" class="btn btn-primary">Kayıt Ol</button>
+		<p class="bottom">Zaten bir hesabın var mı?  <a class="bottom" href="{{url_for('login')}}"> Giriş Yap</a></p>
+	</form>
+    </div>
+
+    <footer>
+        <p>Copyright © Ayberk Irmak</br>Flask Exam App</p>
+    </footer>
+</body>
+</html>

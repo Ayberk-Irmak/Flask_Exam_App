@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flask Exam App</title>
+    <style>
+        /* Genel stil */
+        body {
+            font-family: "Averia Serif Libre", cursive;
+            background-color: #6da9df;
+            color: #ffffff;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Header stil */
+        header {
+            background-color: #1e405e;
+            color: white;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            max-width: 100px;
+        }
+
+        ul.menu {
+            list-style-type: none;
+            display: flex;
+        }
+
+        ul.menu li {
+            margin-left: 20px;
+        }
+
+        ul.menu a {
+            text-decoration: none;
+            color: white;
+        }
+
+        ul.menu-vertical {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            margin-left: auto;
+        }
+
+        ul.menu-vertical li {
+            margin-right: 20px;
+        }
+
+        ul.menu-vertical a {
+            text-decoration: none;
+            color: white;
+        }
+
+        /* Content stil */
+        .content {
+            text-align: center;
+        }
+
+        h1.colorful-text {
+            background: #1e405e;
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            font-size: 36px;
+        }
+
+        /* Soru stil */
+        .card {
+            background: #bfdb74;
+            text-align: left;
+            width: 549px;
+            height: 484px;
+            margin: 50px auto;
+            box-shadow: 8px 8px 1px 1px #87745C;
+            border-radius: 30px;
+            padding: 15px;
+        }
+        .card .button-36{
+            
+        }
+        /* Radio butonlarını stillemek için CSS */
+.radio-item {
+    display: block; /* Her bir radio butonunu blok olarak düzenler */
+    margin: 5px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: rgba(0, 0, 0, 0.25);
+    cursor: pointer;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* Seçilen radio butonunun stillemesi */
+.radio-item input[type="radio"]:checked + label {
+    background-color: #3498db;
+    color: #fff;
+    border-color: #3498db;
+}
+
+        .button-36 {
+            background-color: #1e405e;
+            border-radius: 8px;
+            border-style: none;
+            box-sizing: border-box;
+            color: #FFFFFF;
+            cursor: pointer;
+            flex-shrink: 0;
+            font-family: "Inter UI","SF Pro Display",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen,Ubuntu,Cantarell,"Open Sans","Helvetica Neue",sans-serif;
+            font-size: 16px;
+            font-weight: 500;
+            height: 4rem;
+            padding: 0 1.6rem;
+            text-align: center;
+            text-shadow: rgba(0, 0, 0, 0.25) 0 3px 8px;
+            transition: all .5s;
+            user-select: none;
+            -webkit-user-select: none;
+            touch-action: manipulation;
+            width: 100%;
+            box-sizing: border-box;
+            margin-top:15px;
+          }
+          
+          .button-36:hover {
+            box-shadow: rgba(80, 63, 205, 0.5) 0 1px 30px;
+            transition-duration: .1s;
+          }
+          
+          @media (min-width: 768px) {
+            .button-36 {
+              padding: 0 2.6rem;
+            }
+          }
+          footer {
+            background-color: #1e405e;
+            color: white;
+            padding: 10px;
+            text-align: center;
+        }
+        div#correct-answer {
+            display: block;
+            margin: 5px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            box-sizing: border-box;
+            background-color: rgb(84 192 39);
+            text-align: center;
+        }
+        div#wrong-answer {
+            display: block;
+            margin: 5px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            box-sizing: border-box;
+            background-color: #FF0000;
+            text-align: center;
+        }
+@media (max-width: 768px) {
+    header {
+        flex-direction: column; /* Dikey sıralama */
+        align-items: flex-start; /* Solda hizalama */
+    }
+
+    .menu {
+        margin-top: 10px; /* Menüyü yukarı taşı */
+        justify-content: flex-start; /* Menüyü sola hizala */
+    }
+
+    .menu li {
+        margin-left: 0; /* Mobilde margin'ı kaldır */
+        margin-top: 10px; /* Mobilde menü öğeleri arasına boşluk ekle */
+    }
+
+    .menu-vertical {
+        padding-left: 0; /* Sol padding'i sıfırla */
+    }
+	.menu-vertical {
+        margin-top: 10px; /* Menüyü yukarı taşı */
+        justify-content: flex-start; /* Menüyü sola hizala */
+    }
+
+    .menu-vertical li {
+        margin-left: 0; /* Mobilde margin'ı kaldır */
+        margin-top: 10px; /* Mobilde menü öğeleri arasına boşluk ekle */
+    }
+
+    .menu-vertical {
+        padding-left: 0; /* Sol padding'i sıfırla */
+    }
+}
+
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="logo"><img src="https://i.hizliresim.com/3cx60od.png" alt="Logo" class="logo"></div>
+        <ul class="menu">
+            <li><a href="/home">Ana Sayfa</a></li>
+            <li><a href="/exam">Sınavlar</a></li>
+            <li><a href="/leader">Liderlik Tablosu</a></li>
+        </ul>
+		<ul class="menu-vertical">
+            <li><a href="#">Puan: {{ score }}</a></li> 
+			<li><a class='user_name' href="#">{{session.name}}</a></li>
+			<li><a href="#"><a href="{{ url_for('logout') }}"> Logout</a></a></li>
+		</ul>
+    </header>
+    <div id="correct-answer" style="display: none;">
+        <p>Doğru Cevap</br>5 Puan Kazandınız :)</br></p>
+        <div id="uyari"></div>
+    </div>
+    
+    <div id="wrong-answer" style="display: none;">
+        <p>Yanlış Cevap</br></p>
+        <div id="uyari"></div>
+    </div>
+
+    <div class="content">
+        <h1 class="colorful-text">Flask Exam App</h1>
+        {% if session.loggedin %}
+        <form class='question' method="POST" action="/submit_exam">
+            {% for question in questions %}
+            <div class="card">
+                <section class="radio-section">
+                    <div class="radio-list">
+                        <h1 class="colorful-text">{{ question['question_text'] }}</h1>
+                        <div class="radio-item" onclick="checkRadio(this)">
+                            <input type="radio" name="question{{ question['question_id'] }}" id="radio1" value="1">
+                            <label for="radio1" class="radio-label">{{ question['option1'] }}</label>
+                        </div>
+                        
+                        <div class="radio-item" onclick="checkRadio(this)">
+                            <input type="radio" name="question{{ question['question_id'] }}" id="radio2" value="2">
+                            <label for="radio2" class="radio-label">{{ question['option2'] }}</label>
+                        </div>
+                        
+                    </div>
+                    
+                    <div class="radio-list">
+                        
+                        <div class="radio-item" onclick="checkRadio(this)">
+                            <input type="radio" name="question{{ question['question_id'] }}" id="radio3" value="3">
+                            <label for="radio3">{{ question['option3'] }}</label>
+                        </div>
+                        
+                        <div class="radio-item" onclick="checkRadio(this)">
+                            <input type="radio" name="question{{ question['question_id'] }}" id="radio4" value="4">
+                            <label for="radio4">{{ question['option4'] }}</label>
+                        </div>
+                        
+                        <input type="hidden" name="question_id{{ question['question_id'] }}" value="{{ question['question_id'] }}">
+                    </div>
+                    
+                </section>
+                
+                <button class="button-36" role="button">Cevapla</button>
+            </div>
+            
+            {% endfor %}
+        </form>        
+        {% else %}
+        <p>You must be logged in to take the exam. Please <a href="/login">log in</a>.</p>
+        {% endif %}
+    </div>
+    <footer>
+        <p>Copyright © Ayberk Irmak</br>Flask Exam App</p>
+    </footer>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript">
+    var sure=5;
+    var milisec=0;
+    var seconds=0;
+    function display(){
+        if(milisec>=10){
+        milisec=0;
+        seconds+=1;
+        }
+        else
+            milisec+=1;
+            document.getElementById("d2").value= sure - milisec;
+            if(milisec == sure) location.href = 'b.html';
+            else setTimeout("display()",1000);
+  }
+    $(document).ready(function () {
+        $("form.question").on("submit", function (e) {
+            e.preventDefault(); 
+
+            // AJAX isteği yap
+            $.ajax({
+                type: "POST",
+                url: "/submit_exam",
+                data: $(this).serialize(), 
+                success: function (response) {
+                    if (response === 'Doğru Cevap') {
+                        $("#correct-answer").show();  
+                        $("#wrong-answer").hide();     
+                    } else if (response === 'Yanlış Cevap') {
+                        $("#correct-answer").hide();  
+                        $("#wrong-answer").show();     
+                    }
+
+                    ysYonlendir("uyari", "/exam", 3);
+                },
+            });
+        });
+    });
+</script>
+<script>
+    function ysYonlendir(ID, adres, saniye) {
+      if (saniye == 0) {
+        window.location.href = adres;
+        return;
+      }
+      document.getElementById(ID).innerHTML = "Yeni Soruya Son " + saniye + " Saniye";
+      saniye--;
+      setTimeout(function() {
+        ysYonlendir(ID, adres, saniye);
+      }, 1000);
+    }
+</script>
+<script>
+    function checkRadio(radioDiv) {
+        var radio = radioDiv.querySelector('input[type="radio"]');
+    
+        radio.checked = true;
+    }
+    
+</script>
+
+</body>
+</html>
